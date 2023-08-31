@@ -1,0 +1,475 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMART MES MAIN</title>
+    <!-- css -->
+    <link rel="stylesheet" href="/css/reset.css">
+
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/currentPage.css">
+    <!-- <link href='fullcalendar-5.11.3/lib/main.css' rel='stylesheet' /> -->
+</head>
+<body>
+<div id="wrap">
+
+    <nav th:replace="sideMenu::nav"></nav>
+    <aside>
+        <div id="asideWrap">
+            <div id="notice">
+                <h1>현황관리</h1>
+                <ul class="chartWrap">
+                    <li class="dailyProduction chart">
+                        <h3>일일생산량</h3>
+                        <canvas id="dailyChart"></canvas>
+                    </li>
+                    <li class="monthlyProduction chart">
+                        <h3>월간생산량</h3>
+                        <canvas id="monthlyChart"></canvas>
+                    </li>
+                </ul>
+                <ul class="chartWrap">
+                    <li class="ProductionStatus chart">
+                        <h3>수주별 생산현황</h3>
+                        <canvas id="ProductionChart"></canvas>
+                    </li>
+                    <li class="CAPAP chart">
+                        <h3>공정별 capap</h3>
+                        <canvas id="CapapChart"></canvas>
+                    </li>
+                </ul>
+                <ul class="chartWrap">
+                    <li class="DailyWorkStatus chart">
+                        <h3>일일재공현황</h3>
+                        <canvas id="DailyWorkChart"></canvas>
+                    </li>
+                    <li class="rawMaterials chart">
+                        <h3>원부자재 발주현황, 수주별 생산현황</h3>
+                        <!-- <canvas id="rawMaterialsChart"></canvas> -->
+                        <!-- <table class="Calendar">
+                          <thead>
+                              <tr>
+                                  <td onClick="prevCalendar();" style="cursor:pointer;">&#60;</td>
+                                  <td colspan="5">
+                                      <span id="calYear"></span>년
+                                      <span id="calMonth"></span>월
+                                  </td>
+                                  <td onClick="nextCalendar();" style="cursor:pointer;">&#62;</td>
+                              </tr>
+                              <tr>
+                                  <td>일</td>
+                                  <td>월</td>
+                                  <td>화</td>
+                                  <td>수</td>
+                                  <td>목</td>
+                                  <td>금</td>
+                                  <td>토</td>
+                              </tr>
+                          </thead>
+
+                          <tbody>
+                          </tbody>
+                      </table> -->
+                        <div id="calendar"></div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </aside>
+</div>
+
+<!-- 스크립트 -->
+
+
+
+
+<!-- 그래프 -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- 달력 -->
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.7/index.global.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.7/index.global.min.js'></script>
+
+
+<script>
+    //일일 생산량
+    var context = document
+        .getElementById('dailyChart')
+        .getContext('2d');
+    var myChart = new Chart(context, {
+        type: 'line', // 차트의 형태
+        data: { // 차트에 들어갈 데이터
+            labels: [
+                //x 축
+                '1','2','3','4','5','6','7'
+            ],
+            datasets: [
+                { //데이터
+                    label: '일일생산량', //차트 제목
+                    fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+                    data: [
+                        21,19,25,20,23,26,25 //x축 label에 대응되는 데이터 값
+                    ],
+                    backgroundColor: [
+                        //색상
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        //경계선 색상
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1 //경계선 굵기
+                }/* ,
+                        {
+                            label: 'test2',
+                            fill: false,
+                            data: [
+                                8, 34, 12, 24
+                            ],
+                            backgroundColor: 'rgb(157, 109, 12)',
+                            borderColor: 'rgb(157, 109, 12)'
+                        } */
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [
+                    {
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }
+                ]
+            }
+        }
+    });
+
+    // 월간 생산량
+    var context = document
+        .getElementById('monthlyChart')
+        .getContext('2d');
+    var myChart = new Chart(context, {
+        type: 'bar', // 차트의 형태
+        data: { // 차트에 들어갈 데이터
+            labels: [
+                //x 축
+                '1','2','3','4','5','6','7'
+            ],
+            datasets: [
+                { //데이터
+                    label: '월간생산량', //차트 제목
+                    fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+                    data: [
+                        21,19,25,20,23,26,25 //x축 label에 대응되는 데이터 값
+                    ],
+                    backgroundColor: [
+                        //색상
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        //경계선 색상
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1 //경계선 굵기
+                }/* ,
+                        {
+                            label: 'test2',
+                            fill: false,
+                            data: [
+                                8, 34, 12, 24
+                            ],
+                            backgroundColor: 'rgb(157, 109, 12)',
+                            borderColor: 'rgb(157, 109, 12)'
+                        } */
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [
+                    {
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }
+                ]
+            }
+        }
+    });
+
+
+    // 일일재공현황
+    var context = document
+        .getElementById('DailyWorkChart')
+        .getContext('2d');
+    var myChart = new Chart(context, {
+        type: 'bar', // 차트의 형태
+        data: { // 차트에 들어갈 데이터
+            labels: [
+                //x 축
+                '1','2','3','4','5','6','7'
+            ],
+            datasets: [
+                { //데이터
+                    label:'일일재공현황', //차트 제목
+                    fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+                    data: [
+                        21,19,25,20,23,26,25 //x축 label에 대응되는 데이터 값
+                    ],
+                    backgroundColor: [
+                        //색상
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        //경계선 색상
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1 //경계선 굵기
+                }/* ,
+                        {
+                            label: 'test2',
+                            fill: false,
+                            data: [
+                                8, 34, 12, 24
+                            ],
+                            backgroundColor: 'rgb(157, 109, 12)',
+                            borderColor: 'rgb(157, 109, 12)'
+                        } */
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [
+                    {
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }
+                ]
+            }
+        }
+    });
+
+    // 공정별  capap
+
+    var context = document
+        .getElementById('CapapChart')
+        .getContext('2d');
+    var myChart = new Chart(context, {
+        type: 'scatter', // 차트의 형태
+        data: { // 차트에 들어갈 데이터
+            labels: [
+                //x 축
+                '1','2','3','4','5','6','7'
+            ],
+            datasets: [
+                { //데이터
+                    label:'capap', //차트 제목
+                    fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+                    data: [
+                        21,19,25,20,23,26,25 //x축 label에 대응되는 데이터 값
+                    ],
+                    backgroundColor: [
+                        //색상
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        //경계선 색상
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1 //경계선 굵기
+                }/* ,
+                        {
+                            label: 'test2',
+                            fill: false,
+                            data: [
+                                8, 34, 12, 24
+                            ],
+                            backgroundColor: 'rgb(157, 109, 12)',
+                            borderColor: 'rgb(157, 109, 12)'
+                        } */
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [
+                    {
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }
+                ]
+            }
+        }
+    });
+
+    //수주별 생산현황
+    var context = document
+        .getElementById('ProductionChart')
+        .getContext('2d');
+    var myChart = new Chart(context, {
+        type: 'bar', // 차트의 형태
+        data: { // 차트에 들어갈 데이터
+            labels: [
+                //x 축
+                '1','2','3','4','5','6','7'
+            ],
+            datasets: [
+                { //데이터1
+                    label:'수주별 생산 현황1', //차트 제목
+                    fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+                    data: [
+                        21,19,25,20,23,26,25 //x축 label에 대응되는 데이터 값
+                    ],
+                    backgroundColor: [
+                        //색상
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        //경계선 색상
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1 //경계선 굵기
+                },
+                { //데이터2
+                    label:'수주별 생산 현황2', //차트 제목
+                    fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+                    data: [
+                        21,19,25,20,23,26,25 //x축 label에 대응되는 데이터 값
+                    ],
+                    backgroundColor: [
+                        //색상
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        //경계선 색상
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1 //경계선 굵기
+                },
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [
+                    {
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }
+                ]
+            }
+        }
+    });
+
+    //일정달력
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events : [
+                {
+                    title: '양배추발주',
+                    start: '2023-05-01'
+                },
+                {
+                    title: '양배추입고',
+                    start: '2023-05-03'
+                },
+                {
+                    title: '양배추즙생산',
+                    start: '2023-05-03',
+                    end: '2023-05-15'
+                },
+                {
+                    title: '양배추즙출하',
+                    start: '2023-05-15',
+
+                },
+            ]
+        });
+        calendar.render();
+    });
+
+    var request = $.ajax({
+        url: "/event", /* 여기는 컨트롤러에서 리퀘스트맵핑 유알엘부터 전부 적어야함 */
+        method:"GET",
+    });
+    request.done(function(data){
+        var calendar = new FullCalendar.Calendar(calendarEl,{
+            initialView :'dayGridMonth',
+            events:data
+        });
+        calendar.render();
+    });
+
+
+
+
+</script>
+
+</body>
+</html>

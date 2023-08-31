@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>수주등록 </title>
+  <!-- css -->
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/nav.css">
+  <link rel="stylesheet" href="/css/order.css">
+  <link rel="stylesheet" href="/css/popUpOrder.css">
+  <link rel="stylesheet" href="/css/popUpOrder2.css">
+  <link rel="stylesheet" href="/css/modal.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+</head>
+<body>
+<div id="wrap">
+  <nav th:replace="sideMenu::nav"></nav>
+  <aside>
+    <form class="orderForm" th:action="@{/mes/ordersSearch}" method="get">
+      <div class="topArea">
+        <h1> 수주등록,관리</h1>
+        <div id="btnWrap">
+          <button class="return">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17.303" height="16.221" viewBox="0 0 17.303 16.221">
+              <path id="redo_FILL0_wght400_GRAD0_opsz48" d="M166.272,272.221a6.251,6.251,0,0,1-4.42-1.73,5.852,5.852,0,0,1,0-8.543,6.251,6.251,0,0,1,4.42-1.73h7.948l-3.082-3.082L172.274,256l5.029,5.029-5.029,5.029-1.136-1.135,3.082-3.082h-7.975a4.644,4.644,0,0,0-3.258,1.257,4.254,4.254,0,0,0,0,6.245,4.644,4.644,0,0,0,3.258,1.257h7.813v1.622Z" transform="translate(-160 -256)" fill="#fff"/>
+            </svg>
+
+          </button>
+          <button class="check" type="submit">조회</button>
+          <button class="new" type="button">신규</button>
+          <button class="retouch" type="button" onclick="handleCheckboxClick(event)">수정</button>
+        </div>
+      </div>
+
+      <div id="tableCheckWrap">
+        <table id="tableCheck">
+          <tr class="tablerow">
+            <td class="inventory">등록일자</td>
+            <td><input type="date" class="datepicker" name="startDate"></td>
+            <td>~</td>
+            <td><input type="date" class="datepicker" id="picker" name="endDate"></td>
+
+          <tr class="tablerow">
+            <td class="inventory">품목</td>
+            <td>
+              <select class="drop">
+                <option value="select">품목</option>
+                <option th:each = "productList : ${productList}" th:value="${productList.getProductId()}" th:text = "${productList.getProductName()}"></option>
+
+              </select>
+            <td class="inventory">진행상태</td>
+            <td>
+              <select class="drop">
+                <option value="select">진행상태</option>
+                <option value="">주문 접수</option>
+                <option value="A">수주 확정</option>
+                <option value="B">생산계획완료</option>
+              </select>
+            </td>
+
+          </tr>
+        </table>
+      </div>
+    </form>
+
+
+    <div id="orderList">
+      <h1> 수주 </h1>
+      <div class="allSelect">전체선택</div>
+      <div class="table-container">
+        <table class="orderData" id="orderData">
+          <thead>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>진행상태</td>
+            <td onclick="clickDate()">등록일자</td>
+            <td onclick="clickNum()">수주번호</td>
+            <td>품목명</td>
+            <td>거래처</td>
+            <td>품목(수)</td>
+            <td>기준단위</td>
+            <td>납품예정일</td>
+            <td>수주확정</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="order, rowStat : ${orderList}">
+            <td th:text="${rowStat.index + 1}"></td>
+            <td>
+              <input type="checkbox" onclick="handleCheckboxClick(event)" class="row-checkbox">
+            </td>
+            <td th:if="${order.orderStatus == 'A'}"> 주문 접수</td>
+            <td th:if="${order.orderStatus == 'B'}"> 수주 확정 </td>
+            <td th:if="${order.orderStatus == 'C'}"> 생산계획완료 </td>
+            <td th:text="${#temporals.format(order.orderDate, 'yyyy.MM.dd')}" th:value="${order.orderDate}">
+            </td>
+            <td th:text="${order.orderNo}"></td>
+            <td th:if ="${order.getProductId() == 'P001'}"> 양배추즙</td>
+            <td th:if ="${order.getProductId() == 'P002'}"> 흑마늘즙</td>
+            <td th:if ="${order.getProductId() == 'P003'}"> 석류젤리스틱</td>
+            <td th:if ="${order.getProductId() == 'P004'}"> 매실젤리스틱</td>
+            <td th:text="${order.getCompanyId()}"></td>
+            <td th:text="${order.orderQuantity}"></td>
+            <td th:text="BOX"></td>
+            <td th:text="${order.deliveryDate}"></td>
+            <td th:index="0">
+              <button th:if = "${order.orderStatus == 'A'}" class="confirmed" type="button" th:onclick="confirmed([[${order.orderNo}]])">수주확정</button>
+              <button th:if = "${order.orderStatus == 'B' || order.orderStatus == 'C'}" class="nowork" type="button" disabled="disabled">확정완료</button>
+            </td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>합계</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <button id="fileSave">엑셀저장</button>
+      <button id="confirmation">확정</button>
+    </div>
+  </aside>
+
+</div>
+
+<!-- 팝업영역입니당다랄당당당 -->
+<!-- 팝업영역입니당다랄당당당 -->
+<!-- 팝업영역입니당다랄당당당 -->
+<!-- 팝업영역입니당다랄당당당 -->
+<!-- 팝업영역입니당다랄당당당 -->
+<!-- 팝업영역입니당다랄당당당 -->
+
+<div id="popUP_wrap" class="hidden">
+  <div id="registrationWrap">
+    <div class="popupTopArea">
+      <h1> 수주등록</h1>
+      <div id="popUpBtnWrap">
+        <button class="save" onclick="calculateExpectedDeliveryDate()">납기일계산</button>
+        <button class="save" onclick="confirmSave()">저장</button>
+        <button class="close" type="button">닫기</button>
+      </div>
+    </div>
+    <div id="popUp_tableCheckWrap">
+      <table id="popUp_tableCheck">
+        <tr class="tablerow">
+          <td class="inventory">수주번호</td>
+          <td>
+            <input type="text" class="systemAuto" placeholder="시스템 자동발번" readonly required>
+          </td>
+          <td class="inventory" >거래처</td>
+          <td>
+            <select class="company" required id = "company" name="company">
+              <option value="">회사명</option>
+              <option value="cupang">쿠팡</option>
+              <option value="Gmarket">지마켓</option>
+              <option value="11">11번가</option>
+            </select>
+          </td>
+          <td class="inventory">담당자</td>
+          <td>
+            <select class="drop" required>
+              <option value="">담당자</option>
+              <option>양은영</option>
+              <option>박희람</option>
+              <option>성현일</option>
+              <option>조현화</option>
+              <option>변경원</option>
+            </select>
+          </td>
+          <td class="inventory">수주일</td>
+          <td>
+            <input type="datetime-local" class="orderPopupDatepicker" required id = "orderDate" name ="orderDate" >
+          </td>
+        </tr>
+        <tr class="tablerow">
+          <td class="inventory" >제품명</td>
+          <td>
+            <select class="company" required id = "selectedBox">
+              <option value="select" >품목</option>
+              <option th:each = "product : ${productList}" th:value="${product.getProductId()}" th:text = "${product.getProductName()}"></option>
+            </select>
+          </td>
+          <td class="inventory">개수</td>
+          <td>
+            <input type = "number" required id = "orderQuantity" name ="orderQuantity" placeholder="BOX" min="0">
+          </td>
+          <td class="inventory" >납품예정일</td>
+          <td>
+            <div class="inputArea" required id = "expectedDeliveryDate" ></div>
+          </td>
+          <td>
+            <input type="datetime-local" class="datepicker" required id = "deliveryDate" name="deliveryDate" >
+          </td>
+
+
+        </tr>
+
+        <tr class="tablerow" >
+
+          <td class="inventory">거래처</td>
+          <td>
+            <select class="drop">
+              <option value="">거래처</option>
+              <option value="cupang">코드하우스</option>
+              <option value="Gmarket">하나로마트</option>
+              <option value="Gmarket">에이농장</option>
+              <option value="Gmarket">팔피엠</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 모달 창-->
+
+<div id="modalOverlay" onclick="closeModal()">
+  <div id="confirmModal" class="modal">
+    <div class="modal-content">
+      <p>저장하시겠습니까?</p>
+      <div class="modal-buttons">
+        <button onclick="saveAndClose()" class="save" type="submit">저장</button>
+        <button onclick="cancelSave()" class="close" type="button">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- 수정 팝업!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!-- 수정 팝업!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!-- 수정 팝업!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!-- 수정 팝업!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!-- 수정 팝업!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!-- 수정 팝업!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!-- 수정 팝업!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!-- 수정 팝업!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!-- 수정 팝업!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!-- 수정 팝업!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!-- 수정 팝업!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!-- 수정 팝업!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<div id="popUP_wrap2">
+  <div id="registrationWrap2">
+    <form id="wrapper2" onsubmit="submitForm(event)">
+      <div class="popupTopArea">
+        <h1>수주수정</h1>
+        <div id="popUpBtnWrap2">
+          <button class="save" type="submit">저장</button>
+          <button class="close" type="button">닫기</button>
+        </div>
+      </div>
+
+      <div id="popUp_tableCheckWrap2">
+        <table id="popUp_tableCheck2">
+          <tr class="tablerow" onclick="toggleCheckbox(this)">
+            <td class="inventory">진행상태</td>
+            <td>
+              <input type="text" class="orderStatus" id="orderStatus">
+            </td>
+            <td class="inventory">수주번호</td>
+            <td>
+              <input type="text" class="orderNo" id="orderNo" placeholder="시스템 자동발번" readonly required>
+            </td>
+            <td class="inventory">품목명</td>
+            <td>
+              <input type="text" class="productId" id="productId">
+            </td>
+          </tr>
+          <tr class="tablerow">
+            <td class="inventory">수주일</td>
+            <td>
+              <input type="text" class="orderDate" id="orderDate"readonly required>
+              <!--              <input type="date" class="popUpdatepicker" >-->
+            </td>
+            <td class="inventory">수량</td>
+            <td>
+              <input type="text" class="orderQuantity" id="orderQuantity">
+            </td>
+
+            <td class="inventory">거래처</td>
+            <td>
+              <input type="text" class="companyId" id="companyId" readonly required>
+            </td>
+
+            <td class="inventory">납품예정일</td>
+            <td>
+              <input type="text" class="deliveryDate" id="deliveryDate">
+            </td>
+
+            <!-- 스크립트 -->
+
+            <script src="/js/datapicker.js"></script>
+            <script src="/js/popUP.js"></script>
+            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script src="/js/download.js"></script>
+
+            <script src="/js/click.js"></script>
+            <script src="/js/OrderSearch.js"></script>
+            <script src="/js/order.js"></script>
+            <script>
+
+
+              function calculateExpectedDeliveryDate() {
+                var orderqty = document.getElementById("orderQuantity").value;
+                var selectedBox = document.getElementById("selectedBox").value;
+
+                // AJAX 요청을 통해 컨트롤러로 값을 전달
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/calculateDeliveryDate", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function () {
+                  if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    var expectedDeliveryDate = response.expectedDeliveryDate;
+
+                    // 예상 납기일 업데이트
+                    document.getElementById("expectedDeliveryDate").innerText = expectedDeliveryDate;
+                  }
+                };
+                xhr.send("orderqty=" + encodeURIComponent(orderqty) + "&selectedBox=" + encodeURIComponent(selectedBox));
+              }
+
+
+
+
+              //수정페이지
+
+              function handleCheckboxClick(event) {
+                const checkbox = event.target;
+                // 체크박스의 부모 행을 가져옵니다.
+                const row = checkbox.closest('tr');
+                if (checkbox.checked) {
+                  // 체크박스가 체크되어 있으면 행 데이터를 표시합니다.
+                  displayRowData(row);
+                }
+              }
+
+              function displayRowData(row) {
+                const orderStatus = row.cells[2].textContent;
+                const statusInput = document.getElementById('orderStatus');
+                statusInput.value = orderStatus;
+
+                const orderNo = row.cells[4].textContent;
+                const orderNoInput = document.getElementById('orderNo');
+                orderNoInput.value = orderNo;
+
+                const productId = row.cells[5].textContent;
+                const productInput = document.getElementById('productId');
+                productInput.value = productId;
+
+                const orderDate = row.cells[3].textContent;
+                const orderDateInput = document.getElementById('orderDate');
+                orderDateInput.value = orderDate;
+
+                const orderQuantity = row.cells[7].textContent;
+                const quantityInput = document.getElementById('orderQuantity');
+                quantityInput.value = orderQuantity;
+
+                const companyId = row.cells[6].textContent;
+                const companyInput = document.getElementById('companyId');
+                companyInput.value = companyId;
+
+                const deliveryDate = row.cells[9].textContent;
+                const deliveryDateInput = document.getElementById('deliveryDate');
+                deliveryDateInput.value = deliveryDate;
+
+
+
+                const rowData = {
+                  index: row.cells[0].textContent,
+                  orderStatus: orderStatus,
+                  orderDate: orderDate,
+                  orderNo: orderNo,
+                  productId: productId,
+                  companyId: companyId,
+                  orderQuantity: orderQuantity,
+                  deliveryDate: deliveryDate,
+                };
+
+                console.log(rowData);
+              }
+
+              //수정데이터 db 보내기
+
+              function submitForm(event) {
+                event.preventDefault();
+
+                // 수정된 값 수집
+                const orderStatus = document.getElementById("orderStatus").value;
+                const orderNo = document.getElementById("orderNo").value;
+                const productId = document.getElementById("productId").value;
+                const orderDate = document.getElementById("orderDate").value;
+                const orderQuantity = document.getElementById("orderQuantity").value;
+                const companyId = document.getElementById("companyId").value;
+                const deliveryDate = document.getElementById("deliveryDate").value;
+
+
+                // AJAX 요청
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "/mes/orderUpdate");
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+
+
+                xhr.send(JSON.stringify({
+                  //"orderStatus": orderStatus,
+                  "orderNo": orderNo,
+                  "productId": productId,
+                  //"orderDate": orderDate,
+                  "orderQuantity": orderQuantity,
+                  "companyId": companyId,
+                  "deliveryDate":deliveryDate,
+                  "orders": {
+                    "orderStatus": orderStatus,
+                    "orderNo": orderNo,
+                    "productId": productId,
+                    "orderDate": orderDate,
+                    "orderQuantity": orderQuantity,
+                    "companyId": companyId,
+                    "deliveryDate":deliveryDate
+                  }
+                }));
+
+                xhr.onload = function() {
+                  if (xhr.status === 200) {
+                    // 성공적으로 업데이트된 경우
+                    window.location.href = "/mes/orderList"; // 리다이렉트
+                  } else {
+                    // 업데이트에 실패한 경우
+                    console.log("업데이트 실패");
+                  }
+                };
+              }
+
+
+
+
+              $(document).ready(function () {
+
+                // 신규
+                $(".new").click(function () {
+                  $("#popUP_wrap").fadeIn();
+                });
+                $(".close").click(function () {
+                  $("#popUP_wrap").fadeOut();
+                });
+
+                //수정
+                $(".retouch").click(function () {
+                  $("#popUP_wrap2").fadeIn();
+                });
+                $(".close").click(function () {
+                  $("#popUP_wrap2").fadeOut();
+                });
+
+              });
+
+              // 신규 모달 표시
+              function confirmSave() {
+                var modal = document.getElementById("confirmModal");
+                modal.style.display = "block"; // 모달 표시
+              }
+
+              function saveAndClose() {
+                saveOrder();
+                closeModal(); // 모달 창 닫기
+
+                // 저장 동작 수행하는 코드 작성
+
+                // showSuccessMessage("저장되었습니다."); // 성공 메시지 표시
+                // closePopup(); // 팝업 창 닫기
+              }
+
+              function closeModal() {
+                var modal = document.getElementById("confirmModal");
+                modal.style.display = "none"; // 모달 숨김
+
+                var popupWrap = document.getElementById("popUP_wrap");
+                popupWrap.style.display = "none"; // 기존 팝업 숨김
+                var popupWrap2 = document.getElementById("popUP_wrap2");
+                popupWrap2.style.display = "none"; // 기존 팝업 숨김
+
+              }
+
+              function closeSuccessModal() {
+                const successModal = document.querySelector(".modal");
+                successModal.parentNode.removeChild(successModal);
+                closeModal(); // 모달 창 닫기
+              }
+
+              function cancelSave() {
+                closeModal(); // 모달 창 닫기
+
+                const popupWrap = document.getElementById("popUP_wrap");
+                popupWrap.style.display = "block"; // 기존 팝업 보이도록 설정
+              }
+
+
+
+
+
+            </script>
+
+
+
+<!-- "excel download" -->
+<!-- Sheet JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
+<!--FileSaver savaAs 이용 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+</body>
+</html>

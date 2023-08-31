@@ -1,0 +1,549 @@
+/* 팝업 */
+#popUp_tableCheck .drop:nth-child(2){
+  margin-left: 12px;
+}
+
+
+#popUp_tableCheck tr:nth-child(1) td:nth-child(7){
+  margin-right: 0;
+}
+
+textarea{
+  display: block;
+
+  width: 1200px;
+  height: 55px;
+  resize: none;
+  border: 1px solid #9F9D9D;
+  border-radius: 0;
+  background-color: rgba(0,0,0,0);
+  padding: 10px 10px;
+  /* box-sizing: border-box; */
+  font-family: 'Pretendard-Regular';
+
+}
+textarea:focus{
+  outline: none;
+}
+
+textarea::-webkit-scrollbar{
+  width: 10px;
+}
+
+textarea::-webkit-scrollbar-thumb{
+  background-color: #022454;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+#popUp_orderList{
+  width: 95%;
+  margin: 10px 0;
+
+}
+
+#popUp_orderList table{
+  width: 100%;
+  border-spacing: 0px;
+  border-collapse: separate;
+  color: #141414;
+}
+
+#popUp_orderList h1{
+  font-size:30px ;
+  margin-bottom: 15px;
+}
+#popUp_orderList table thead tr{
+  background-color: #022454;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  height: 40px;
+}
+#popUp_orderList table thead tr td{
+  background-color: #022454;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+}
+
+#popUp_orderList table thead tr td:nth-child(1),
+#popUp_orderList table thead tr td:nth-child(2){
+  width: 40px;
+}
+
+#popUp_orderList table tbody{
+  font-weight: 500;
+  text-align: center;
+}
+#popUp_orderList table tbody tr:nth-child(odd){
+  background-color: #F2F3F4;
+}
+
+#popUp_orderList table tbody td:nth-child(9),
+#popUp_orderList table tbody td:nth-child(10),
+#popUp_orderList table tbody td:nth-child(11),
+#popUp_orderList table tbody td:nth-child(12)
+{
+  text-align: right;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+#popUp_orderList table tfoot{
+  width: 30px;
+  background-color: #022454;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  height: 40px;
+}
+
+
+#popUp_orderList table tr td{
+  border-right: 1px solid white;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+#popUp_orderList table tfoot tr td:nth-child(3),
+#popUp_orderList table tfoot tr td:nth-child(4),
+#popUp_orderList table tfoot tr td:nth-child(5),
+#popUp_orderList table tfoot tr td:nth-child(6),
+#popUp_orderList table tfoot tr td:nth-child(7){
+  border: none;
+}
+
+#popUp_orderList table tfoot tr td:nth-child(8){
+  border-left: 1px solid white;
+}
+
+#popUp_orderList table tfoot tr td:nth-child(9),
+#popUp_orderList table tfoot tr td:nth-child(10),
+#popUp_orderList table tfoot tr td:nth-child(11),
+#popUp_orderList table tfoot tr td:nth-child(12){
+  text-align: right;
+}
+
+#popUP_wrap{
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 100px;
+  box-sizing: border-box;
+  z-index: 2;
+  display: none;
+}
+
+
+
+#registrationWrap{
+  width: 1500px;
+  height: 900px;
+  background-color: white;
+  margin: 5% auto;
+  padding: 0 45px;
+  box-sizing: border-box;
+}
+
+#wrapper{
+  width: 100%;
+  padding:0 45px;
+  box-sizing: border-box;
+}
+
+.popupTopArea{
+  padding: 19px 0 0 ;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+
+}
+.popupTopArea h1{
+  font-size: 40px;
+  font-weight: 700;
+}
+
+/* 테이블1 */
+#popUp_tableCheckWrap{
+  width: 100%;
+  height: auto;
+  /* background-color: khaki; */
+  /* border-top: 1px solid #9F9D9D ;
+  border-bottom: 1px solid #9F9D9D ; */
+
+}
+
+#popUp_tableCheck{
+  width: 100%;
+}
+
+/* 회사 수주일, 수주번호,품목 거래처 */
+.inventory{
+  width: 120px;
+  height: 100%;
+  background-color: #F2F3F4;
+  border: 0px;
+  text-align: center;
+  line-height: 57px;
+  margin-right: 12px;
+  font-weight: 500;
+}
+
+.tablerow{
+  height: 57px;
+  display: flex;
+  align-items: center;
+  border-collapse: collapse;
+  border-bottom: 1px solid #9F9D9D;
+
+}
+
+.tablerow:nth-child(1){
+  border-top: 1px solid #9F9D9D;
+
+}
+
+/*input[type="search"],input[type="date"],input[type="text"]{*/
+/*  -webkit-appearance: none;*/
+/*  -moz-appearance: none;*/
+/*       appearance: none;*/
+/*       !* 인풋 초기화 *!*/
+/*  width: 163px;*/
+/*  height: 43px;*/
+/*  margin-left: 12px;*/
+/*  border: 1px solid  #9F9D9D;*/
+/*  font-family: 'Montserrat', sans-serif; */
+/*  padding: 12px 9px;*/
+/*  box-sizing: border-box;*/
+/*}*/
+
+.systemAuto{
+  margin-right: 12px;
+}
+input[type="text"]{
+  margin-left: 0;
+}
+
+
+.searchBtn{
+  width: 43px;
+  height: 43px;
+  background-color: #022454;
+  margin-top: 0px;
+  margin-left: 4px;
+  margin-right: 12px;
+}
+
+form{
+  width: 100%;
+  height: auto;
+}
+
+form input:nth-child(1){
+  margin-left:0;
+}
+
+
+.datepicker{
+  margin-left: 0;
+  margin-right:16px ;
+}
+#picker{
+  margin-left: 16px;
+  margin-right: 12px;
+}
+
+.company,.drop{
+  width: 163px;
+  height: 43px;
+  border: 1px solid #707070;
+  margin-right: 12px;
+}
+
+/* 체크박스 */
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  outline: none !important;
+  border: 1px solid #eeeeee;
+  border-radius: 2px;
+  background: #fbfbfb;
+}
+
+input[type="checkbox"]::before {
+  content: "\2713";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  transform: scale(0) translate(-50%, -50%);
+  line-height: 1;
+}
+
+input[type="checkbox"]:hover {
+  border-color: rgba(170, 170, 170, 0.5);
+}
+
+input[type="checkbox"]:checked {
+  background-color:#022454;
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+input[type="checkbox"]:checked::before {
+  border-radius: 2px;
+  transform: scale(1) translate(-50%, -50%)
+}
+
+/* 수주등록 테이블 끝 */
+
+/* 버튼 */
+
+.save, .close, .confirmsave{
+  width: 88px;
+  height: 43px;
+  background-color: #022454;
+  color: white;
+  font-size: 16px;
+  margin-right: 4px;
+  margin-top: 0px;
+  margin-left: 0px;
+}
+
+/* 수주 상세 테이블 */
+
+/* 수주 테이블 시작 */
+td{
+  cursor: pointer;
+}
+
+#popUp_orderList{
+  width: 100%
+
+}
+
+#popUp_orderList table{
+  width: 100%;
+  border-spacing: 0px;
+  border-collapse: separate;
+  color: #141414;
+}
+
+#popUp_orderList h1{
+  font-size:30px ;
+  margin-bottom: 15px;
+}
+#popUp_orderList table thead tr{
+  background-color: #022454;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  height: 40px;
+}
+#popUp_orderList table thead tr td{
+  background-color: #022454;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+}
+
+#popUp_orderList table thead tr td:nth-child(1),
+#popUp_orderList table thead tr td:nth-child(2){
+  width: 40px;
+}
+
+#popUp_orderList table tbody{
+  font-weight: 500;
+  text-align: center;
+}
+#popUp_orderList table tbody tr:nth-child(odd){
+  background-color: #F2F3F4;
+}
+
+#popUp_orderList table tbody td:nth-child(9),
+#popUp_orderList table tbody td:nth-child(10),
+#popUp_orderList table tbody td:nth-child(11),
+#popUp_orderList table tbody td:nth-child(12)
+{
+  text-align: right;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+#popUp_orderList table tfoot{
+  width: 30px;
+  background-color: #022454;
+  color: white;
+  font-weight:5600;
+  text-align: center;
+  height: 40px;
+}
+
+
+#popUp_orderList table tr td{
+  border-right: 1px solid white;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+#popUp_orderList table tfoot tr td:nth-child(3),
+#popUp_orderList table tfoot tr td:nth-child(4),
+#popUp_orderList table tfoot tr td:nth-child(5),
+#popUp_orderList table tfoot tr td:nth-child(6),
+#popUp_orderList table tfoot tr td:nth-child(7),
+#popUp_orderList table tfoot tr td:nth-child(8){
+  border: none;
+}
+
+#popUp_orderList table tfoot tr td:nth-child(9){
+  border-left: 1px solid white;
+}
+
+#popUp_orderList table tfoot tr td:nth-child(9),
+#popUp_orderList table tfoot tr td:nth-child(10),
+#popUp_orderList table tfoot tr td:nth-child(11),
+#popUp_orderList table tfoot tr td:nth-child(12){
+  text-align: right;
+}
+/* 수주 테이블 끝 */
+
+/* 수주상세 테이블 시작 */
+#popUp_orderDetails{
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.popUPbtn{
+  width: 140px;
+  height: 43px;
+  color: white;
+  background-color: #022454;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 0;
+  margin-left: 4px;
+}
+
+#popUp_orderDetails table{
+  width: 100%;
+  border-spacing: 0px;
+  border-collapse: separate;
+  color: #141414;
+}
+
+#popUp_orderDetails h1{
+  font-size:30px ;
+  margin-bottom: 15px;
+}
+
+#popUp_orderDetails table thead tr{
+  background-color: #022454;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  height: 40px;
+}
+#popUp_orderDetails table thead tr td{
+  /* background-color: #022454; */
+  color: white;
+  font-weight: 500;
+  text-align: center;
+}
+
+#popUp_orderDetails table tbody{
+  text-align: center;
+}
+
+#popUp_orderDetails table tbody tr:nth-child(odd){
+  background-color: #F2F3F4;
+}
+
+#popUp_orderDetails table tbody td:nth-child(9),
+#popUp_orderDetails table tbody td:nth-child(10),
+#popUp_orderDetails table tbody td:nth-child(11),
+#popUp_orderDetails table tbody td:nth-child(12)
+{
+  text-align: right;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+
+#popUp_orderDetails table tfoot{
+  width: 30px;
+  background-color: #022454;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  height: 40px;
+}
+
+
+#popUp_orderDetails table tr td{
+  border-right: 1px solid white;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+#popUp_orderDetails table tfoot tr td:nth-child(3),
+#popUp_orderDetails table tfoot tr td:nth-child(4),
+#popUp_orderDetails table tfoot tr td:nth-child(5),
+#popUp_orderDetails table tfoot tr td:nth-child(6),
+#popUp_orderDetails table tfoot tr td:nth-child(7),
+#popUp_orderDetails table tfoot tr td:nth-child(8){
+  border: none;
+}
+
+#popUp_orderDetails table tfoot tr td:nth-child(9){
+  border-left: 1px solid white;
+}
+
+#popUp_orderDetails table tfoot tr td:nth-child(9),
+#popUp_orderDetails table tfoot tr td:nth-child(10),
+#popUp_orderDetails table tfoot tr td:nth-child(11),
+#popUp_orderDetails table tfoot tr td:nth-child(12){
+  text-align: right;
+}
+
+
+
+#popUp_tableCheck tbody tr:nth-child(3) .inventory {
+  line-height: 57px;
+}
+
+#popUp_tableCheck tr:nth-child(1) td:nth-child(8) input{
+  margin-left: 12px;
+}
+
+
+
+#popUp_tableCheck tr:nth-child(2) td:nth-child(7) {
+  margin-left: 12px;
+}
+#popUp_tableCheck tr:nth-child(2) td:nth-child(7) {
+  margin-right: 0px;
+}
+#popUp_tableCheck tr:nth-child(2) td:nth-child(3){
+  margin-right: 0;
+}
+
+#popUp_tableCheck tr:nth-child(2) td:nth-child(4){
+  margin-right: 12px;
+}
+
+#popUp_tableCheck tr:nth-child(3) td:nth-child(2){
+  margin-right: 12px;
+}
+
+
+
+

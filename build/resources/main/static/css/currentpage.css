@@ -1,0 +1,187 @@
+#wrap{
+    width: 100%;
+    height: auto;
+}
+a{
+    color: white;
+}
+
+nav{
+    width:20% ;
+
+    height: 100vh;
+    position: fixed;
+
+    background-color: #022454;
+    color: white;
+    float: left;
+}
+.title{
+    font-size: 20px;
+    font-weight: 800;
+}
+#business,#Purchase,#Production,#standard{
+    margin-left: 40px;
+}
+
+li{
+    margin: 13px 0;
+}
+ul{
+    margin-top: 16px;
+}
+ul,li{
+    cursor: pointer;
+}
+button{
+    width: 66px;
+    height: 24px;
+    font-size: 30px;
+    font-weight: 900;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    color: white;
+    margin-top: 23px;
+    cursor: pointer;
+    margin-left: 40px;
+    font-family: 'Pretendard-Regular';
+}
+aside{
+    width: 80%;
+    height: auto;
+    /* background-color: ; */
+    float: right;
+    display: flex;
+    justify-content: space-between;
+}
+
+#asideWrap{
+    width: 100%;
+    height: auto;
+    margin-top:50px;
+    display: flex;
+    justify-content: space-between;
+}
+/* 현황관리 */
+#notice{
+    width: 95%;
+    margin-left: 45px;
+}
+#notice h1{
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 23px;
+    color: #022454;
+}
+.chartWrap{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.chart{
+    width: 50%;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+#calendar a{
+    color: #022454;
+}
+#calendar{
+    width: 100%;
+}
+
+
+.fc .fc-button-primary{
+    padding: 0;
+}
+
+.copy{
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+
+
+
+/* 달력 */
+/* #CalendarWrap{
+  width: 1000px;
+  margin-left: 45px;
+  margin-right: 45px;
+}
+.Calendar{
+  width: 100%;
+  height: 700px;
+  background-color: #fff;
+  border-radius: 35px;
+  padding: 30px;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+#CalendarWrap h1{
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 23px;
+  color: #022454;
+}
+
+.Calendar {
+  text-align: center;
+}
+
+.Calendar>thead>tr:first-child>td {
+  font-size:20px;
+  font-weight: 800;
+}
+
+.Calendar>thead>tr:last-child>td {
+  font-weight: 600;
+}
+
+.Calendar>tbody>tr>td>p {
+  font-family: 'Montserrat', sans-serif;
+  height: 45px;
+  width: 45px;
+  border-radius: 45px;
+  transition-duration: .2s;
+  line-height: 45px;
+  margin: 2.5px;
+  display: block;
+  text-align: center;
+}
+
+.pastDay {
+  color: lightgray;
+}
+
+.today {
+  background-color: #F5D042;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.futureDay {
+  background-color: #FFFFFF;
+  cursor: pointer;
+}
+.futureDay:hover{
+  background:#eee;
+}
+
+.futureDay.choiceDay,
+.today.choiceDay {
+  background: #022454;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+} */
+
+
+
+
+
+

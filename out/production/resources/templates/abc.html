@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<tr th:each="perform : ${prodPerform}">
+  <td th:text="${perform.productionNo}"></td>
+  <td th:text="${perform.productionSeq}"></td>
+  <td th:text="${perform.productionDate}"></td>
+  <!-- ... -->
+</tr>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>생산계획 </title>
+  <!-- css -->
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/nav.css">
+  <link rel="stylesheet" href="/css/Production.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <!--   <link rel="stylesheet" href="../static/css/popUpOrder.css"> -->
+</head>
+
+<body>
+<div id="wrap">
+
+  <nav th:replace="sideMenu::nav"></nav>
+
+
+  <aside>
+    <form class="orderForm" th:action="@{/mes/search}" method="post">
+      <div class="topArea">
+        <h1>생산계획</h1>
+        <div id="btnWrap">
+          <button class="return" type="reset">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17.303" height="16.221" viewBox="0 0 17.303 16.221">
+              <path id="redo_FILL0_wght400_GRAD0_opsz48" d="M166.272,272.221a6.251,6.251,0,0,1-4.42-1.73,5.852,5.852,0,0,1,0-8.543,6.251,6.251,0,0,1,4.42-1.73h7.948l-3.082-3.082L172.274,256l5.029,5.029-5.029,5.029-1.136-1.135,3.082-3.082h-7.975a4.644,4.644,0,0,0-3.258,1.257,4.254,4.254,0,0,0,0,6.245,4.644,4.644,0,0,0,3.258,1.257h7.813v1.622Z" transform="translate(-160 -256)" fill="#fff"/>
+            </svg>
+          </button>
+          <button class="check" type="submit">조회</button>
+        </div>
+      </div>
+
+      <div id="tableCheckWrap">
+        <table id="tableCheck">
+          <tr class="tablerow">
+
+            <td class="inventory">조회날짜</td>
+            <td><input type="date" class="datepicker" name="startDate"></td>
+            <td>~</td>
+            <td><input type="date" class="datepicker" id="picker" name="endDate"></td>
+            <td class="inventory">진행상태</td>
+            <td>
+              <select class="drop" name="status">
+                <option value="">진행상태</option>
+                <option value="대기">대기</option>
+                <option value="발주입고대기중">발주입고대기중</option>
+                <option value="진행중">진행중</option>
+              </select>
+            </td>
+            <td class="inventory">품목</td>
+            <td>
+              <select class="drop" name="items">
+                <option value="">품목</option>
+                <option value="흑마늘즙">흑마늘즙</option>
+                <option value="양배추즙">양배추즙</option>
+                <option value="석류젤리">석류젤리</option>
+                <option value="매실젤리">매실젤리</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </form>
+
+    <div id="orderList">
+      <h1>생산계획 목록</h1>
+      <div class="allSelect">전체선택</div>
+      <div class="table-container">
+        <table id="orderData">
+          <thead>
+          <tr>
+            <td></td>
+            <td></td>
+            <td onclick="clickNum()">생산계획번호</td>
+            <td>생산계획항번</td>
+            <td onclick="clickDate()">생산번호일자</td>
+            <td onclick="productionNum()">수주번호</td>
+<!--            <td>생산계획항번</td>-->
+<!--            <td onclick="productionDate()">생산번호일자</td>-->
+<!--            <td onclick="productionNum()">생산계획번호</td>-->
+<!--            <td>생산계획항번</td>-->
+<!--            <td onclick="productionDate()">생산번호일자</td>-->
+            <td>품목</td>
+            <td>계획수량</td>
+            <td>작업지시완료여부</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="prodPlan, prodPlanIndex : ${prodPlans}" onclick="toggleCheckbox(this)">
+            <td th:text="${prodPlanIndex.index + 1}"></td>
+            <td>
+              <input type="checkbox" id="checkbox">
+            </td>
+            <td th:text="${prodPlan.prodPlanNo}"></td>
+            <td th:text="${prodPlan.prodPlanSeq}"></td>
+            <td th:text="${prodPlan.prodPlanDate}"></td>
+            <td th:text="${prodPlan.orderNo}"></td>
+            <td th:text="${prodPlan.productName}"></td>
+            <td th:text="${prodPlan.prodPlanQuantity}"></td>
+            <td th:text="${prodPlan.prodPlanFinYn}"></td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+
+
+    <!-- 스크립트 -->
+
+    <script src="/js/datapicker.js"></script>
+    <script src="/js/popUP.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/js/download.js"></script>
+    <script src="/js/click.js"></script>
+    <script src="/js/Search.js"></script>
+    <script>
+
+
+      $(document).ready(function() {
+
+        $(".new").click(function() {
+          $("#popUP_wrap").fadeIn();
+
+        });
+
+        $(".close").click(function() {
+
+          $("#popUP_wrap").fadeOut();
+
+        });
+
+      });
+    </script>
+
+    <!-- "excel download" -->
+    <!-- Sheet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
+    <!--FileSaver savaAs 이용 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+</body>
+</html>

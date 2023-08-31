@@ -1,0 +1,468 @@
+
+#Production li:nth-child(3){
+  font-weight: 700;
+}
+
+.table-container {
+  max-height: 500px;
+  overflow-y: auto;
+}
+.orderData thead{
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+aside{
+  width: 80%;
+  float: right;
+}
+/* 수주등록 , 조회 신규 수정 버튼 */
+.topArea{
+  width: 100%;
+  height: 91px;
+  display: flex;
+  justify-content: space-between;
+  padding: 35px 45px 0 45px;
+  box-sizing: border-box;
+}
+.topArea h1{
+  font-size:40px ;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.return{
+  width: 43px;
+  height: 43px;
+  background-color: #022454;
+  margin-right: 4px;
+  margin-top: 0px;
+  margin-left: 0px;
+}
+.return svg{
+  margin: 13px 12.7px 13.8px 13px;
+}
+.check,.new,.retouch,.closing,.closingCancel{
+  width: 88px;
+  height: 43px;
+  background-color: #022454;
+  color: white;
+  font-size: 16px;
+  margin-right: 4px;
+  margin-top: 0px;
+  margin-left: 0px;
+}
+.retouch{
+  margin-right: 0;
+}
+
+#btnWrap{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 테이블1 */
+#tableCheckWrap{
+  width: 95%;
+  height: 117px;
+  /* background-color: khaki; */
+  /* border-top: 1px solid #9F9D9D ;
+  border-bottom: 1px solid #9F9D9D ; */
+  margin: 0 45px;
+}
+
+#tableCheck{
+  width: 100%;
+}
+
+/* 회사 수주일, 수주번호,품목 거래처 */
+.inventory{
+  width: 120px;
+  height: 100%;
+  background-color: #F2F3F4;
+  border: 0px;
+  text-align: center;
+  line-height: 57px;
+  margin-right: 12px;
+  font-weight: 500;
+}
+
+.tablerow{
+  height: 57px;
+  display: flex;
+  align-items: center;
+  border-collapse: collapse;
+  border-bottom: 1px solid #9F9D9D;
+  
+}
+
+.tablerow:nth-child(1){
+  border-top: 1px solid #9F9D9D;
+
+}
+
+input[type="search"],input[type="date"],input[type="text"]{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+       /* 인풋 초기화 */
+  width: 163px;
+  height: 43px;
+  margin-left: 12px;
+  border: 1px solid  #9F9D9D;
+  font-family: 'Montserrat', sans-serif; 
+  padding: 12px 9px;
+  box-sizing: border-box;
+}
+
+.systemAuto{
+  margin-right: 12px;
+}
+input[type="text"]{
+  margin-left: 0;
+}
+
+
+.searchBtn{
+  width: 43px;
+  height: 43px;
+  background-color: #022454;
+  margin-top: 0px;
+  margin-left: 4px;
+  margin-right: 12px;
+}
+
+form{
+  width: 100%;
+  height: auto;
+}
+
+form input:nth-child(1){
+  margin-left:0;
+}
+
+
+.datepicker{
+  margin-left: 0;
+  margin-right:16px ;
+}
+#picker{
+  margin-left: 16px;
+  margin-right: 12px;
+}
+
+.company,.drop{
+  width: 163px;
+  height: 43px;
+  border: 1px solid #707070;
+  margin-right: 12px;
+}
+
+/* 체크박스 */
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  outline: none !important;
+  border: 1px solid #eeeeee;
+  border-radius: 2px;
+  background: #fbfbfb;
+}
+
+input[type="checkbox"]::before {
+  content: "\2713";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  transform: scale(0) translate(-50%, -50%);
+  line-height: 1;
+}
+
+input[type="checkbox"]:hover {
+  border-color: rgba(170, 170, 170, 0.5);
+}
+
+input[type="checkbox"]:checked {
+  background-color:#022454;
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+input[type="checkbox"]:checked::before {
+  border-radius: 2px;
+  transform: scale(1) translate(-50%, -50%)
+}
+
+/* 수주등록 테이블 끝 */
+
+/* 수주 테이블 시작 */
+td{
+  cursor: pointer;
+}
+
+#orderList{
+  width: 95%;
+  margin: 10px 45px 0 45px;
+
+}
+
+#orderList table{
+  width: 100%;
+  border-spacing: 0px;
+  border-collapse: separate;
+  color: #141414;
+}
+
+#orderList h1{
+  font-size:30px ;
+  margin-bottom: 15px;
+}
+#orderList table thead tr{
+  background-color: #022454;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  height: 40px;
+}
+#orderList table thead tr td{
+  background-color: #022454;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+}
+
+#orderList table thead tr td:nth-child(1),
+#orderList table thead tr td:nth-child(2){
+  width: 40px;
+}
+
+#orderDetails table thead tr td:nth-child(2){
+  width: auto;
+}
+
+#orderList table thead tr td:nth-child(8),
+#orderList table thead tr td:nth-child(9),
+#orderList table thead tr td:nth-child(10),
+#orderList table thead tr td:nth-child(11),
+#orderList table thead tr td:nth-child(12){
+  border: none;
+}
+
+#orderList table tbody{
+  text-align: center;
+}
+#orderList table tbody tr:nth-child(odd){
+  background-color: #F2F3F4;
+}
+
+
+
+#orderList table tfoot{
+  width: 30px;
+  background-color: #022454;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  height: 40px;
+}
+
+
+
+#orderList table tr td{
+  border-right: 1px solid white;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+#orderList table tfoot tr td:nth-child(2),
+#orderList table tfoot tr td:nth-child(3),
+#orderList table tfoot tr td:nth-child(4),
+#orderList table tfoot tr td:nth-child(5),
+#orderList table tfoot tr td:nth-child(6),
+#orderList table tfoot tr td:nth-child(7),
+#orderList table tfoot tr td:nth-child(8),
+#orderList table tfoot tr td:nth-child(9),
+#orderList table tfoot tr td:nth-child(10),
+#orderList table tfoot tr td:nth-child(11),
+#orderList table tfoot tr td:nth-child(12),
+#orderList table tfoot tr td:nth-child(13)
+{
+  border: none;
+}
+
+#orderList table tbody td:nth-child(8),
+#orderList table tbody td:nth-child(9),
+#orderList table tbody td:nth-child(10),
+#orderList table tbody td:nth-child(11),
+#orderList table tbody td:nth-child(12){
+  border: none;
+}
+#orderList table tfoot tr td:nth-child(6),
+#orderList table tfoot tr td:nth-child(7){
+  border-left: 1px solid white;
+}
+
+
+#orderList table tfoot tr td:nth-child(6){
+  text-align: right;
+}
+/* 수주 테이블 끝 */
+
+/* 수주상세 테이블 시작 */
+ #orderDetails{
+  width: 95%;
+  margin: 10px 45px 0 45px;
+
+}
+
+#orderDetails table thead tr td:nth-child(1),
+#orderDetails table thead tr td:nth-child(2){
+  width: 40px;
+}
+
+#orderDetails table{
+  width: 100%;
+  border-spacing: 0px;
+  border-collapse: separate;
+  color: #141414;
+}
+
+#orderDetails h1{
+  font-size:30px ;
+  margin-bottom: 15px;
+}
+
+#orderDetails table thead tr{
+  background-color: #022454;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  height: 40px;
+}
+#orderDetails table thead tr td{
+  /* background-color: #022454; */
+  color: white;
+  font-weight: 500;
+  text-align: center;
+}
+
+#orderDetails table tbody{
+  text-align: center;
+}
+
+#orderDetails table tbody tr:nth-child(odd){
+  background-color: #F2F3F4;
+}
+
+#orderDetails table thead td:nth-child(7),
+#orderDetails table thead td:nth-child(8),
+#orderDetails table thead td:nth-child(9),
+#orderDetails table thead td:nth-child(10),
+#orderDetails table thead td:nth-child(11),
+#orderDetails table thead td:nth-child(12),
+#orderDetails table thead td:nth-child(13){
+  border: none;
+}
+
+/*#orderDetails table tbody td:nth-child(10),*/
+/*#orderDetails table tbody td:nth-child(5),*/
+/*#orderDetails table tbody td:nth-child(11)*/
+/*{*/
+/*  text-align: right;*/
+/*  padding: 12px;*/
+/*  box-sizing: border-box;*/
+/*}*/
+#orderDetails table tbody td:nth-child(6)
+{
+  text-align: center;
+  padding: 12px;
+  box-sizing: border-box;
+}
+#orderDetails table tbody td:nth-child(7),
+#orderDetails table tbody td:nth-child(8),
+#orderDetails table tbody td:nth-child(9),
+#orderDetails table tbody td:nth-child(10),
+#orderDetails table tbody td:nth-child(11),
+#orderDetails table tbody td:nth-child(12),
+#orderDetails table tbody td:nth-child(13),
+#orderDetails table tbody td:nth-child(14){
+ border: none;
+}
+
+
+#orderDetails table tfoot{
+  width: 30px;
+  background-color: #022454;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  height: 40px;
+}
+
+
+#orderDetails table tr td{
+  border-right: 1px solid white;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+#orderDetails table tfoot tr td:nth-child(2),
+#orderDetails table tfoot tr td:nth-child(3),
+#orderDetails table tfoot tr td:nth-child(4),
+#orderDetails table tfoot tr td:nth-child(5),
+#orderDetails table tfoot tr td:nth-child(6),
+#orderDetails table tfoot tr td:nth-child(7),
+#orderDetails table tfoot tr td:nth-child(8),
+#orderDetails table tfoot tr td:nth-child(9),
+#orderDetails table tfoot tr td:nth-child(10),
+#orderDetails table tfoot tr td:nth-child(11),
+#orderDetails table tfoot tr td:nth-child(12),
+#orderDetails table tfoot tr td:nth-child(13){
+  border: none;
+}
+
+/* #orderDetails table tfoot tr td:nth-child(9){
+  border-left: 1px solid white;
+} */
+
+
+#orderDetails table tfoot tr td:nth-child(10),
+#orderDetails table tfoot tr td:nth-child(11){
+  text-align: right;
+}
+
+#fileSave{
+  width: 88px;
+  height: 43px;
+  background-color: #022454;
+  text-align: center;
+  line-height: 43px;
+  font-size: 16px;
+  font-weight: 600;
+  float: right;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+

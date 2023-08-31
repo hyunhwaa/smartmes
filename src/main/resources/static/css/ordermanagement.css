@@ -1,0 +1,131 @@
+#fileSave{
+  width: 88px;
+  height: 43px;
+  background-color: #022454;
+  text-align: center;
+  line-height: 43px;
+  font-size: 16px;
+  font-weight: 600;
+  float: right;
+  margin: 0 0 0 4px;
+}
+#business li:nth-child(3){
+  font-weight: 700;
+}
+
+
+#orderManagementList{
+  width: 95%;
+  margin: 10px 45px 0 45px;
+
+}
+
+#orderManagementList table{
+  width: 100%;
+  border-spacing: 0px;
+  border-collapse: separate;
+  color: #141414;
+}
+
+#orderManagementList h1{
+  font-size:30px ;
+  margin-bottom: 15px;
+}
+#orderManagementList table thead tr{
+  background-color: #022454;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  height: 40px;
+}
+#orderManagementList table thead tr td{
+  background-color: #022454;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+}
+
+#orderManagementList table thead tr td:nth-child(1),
+#orderManagementList table thead tr td:nth-child(2){
+  width: 40px;
+}
+
+#orderManagementList table tbody{
+  text-align: center;
+}
+#orderManagementList table tbody tr:nth-child(odd){
+  background-color: #F2F3F4;
+}
+/* 
+#orderManagementList table tbody td:nth-child(13),
+#orderManagementList table tbody td:nth-child(14),
+#orderManagementList table tbody td:nth-child(15),
+#orderManagementList table tbody td:nth-child(16),
+#orderManagementList table tbody td:nth-child(17)
+{
+  text-align: right;
+  padding: 12px;
+  box-sizing: border-box;
+} */
+
+#orderManagementList table tfoot{
+  width: 30px;
+  background-color: #022454;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  height: 40px;
+}
+
+
+#orderManagementList table tr td{
+  border-right: 1px solid white;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+#orderManagementList table tfoot tr td:nth-child(3),
+#orderManagementList table tfoot tr td:nth-child(4),
+#orderManagementList table tfoot tr td:nth-child(5),
+#orderManagementList table tfoot tr td:nth-child(6),
+#orderManagementList table tfoot tr td:nth-child(7),
+#orderManagementList table tfoot tr td:nth-child(8),
+#orderManagementList table tfoot tr td:nth-child(9),
+#orderManagementList table tfoot tr td:nth-child(10),
+#orderManagementList table tfoot tr td:nth-child(11),
+#orderManagementList table tfoot tr td:nth-child(12){
+  border: none;
+}
+
+
+
+#orderManagementList table tfoot tr td:nth-child(13),
+#orderManagementList table tfoot tr td:nth-child(14),
+#orderManagementList table tfoot tr td:nth-child(15),
+#orderManagementList table tfoot tr td:nth-child(16),
+#orderManagementList table tfoot tr td:nth-child(17){
+  text-align: right;
+}
+
+#business li:nth-child(2){
+  font-weight: 400;
+}
+
+#business li:nth-child(3){
+  font-weight: 700;
+}
+
+
+#popUp_tableCheck tr:nth-child(2) td:nth-child(8) select{
+  margin-right: 0;
+}
+
+.table-container {
+  max-height: 500px;
+  overflow-y: auto;
+}
+.orderData thead{
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}

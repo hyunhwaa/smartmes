@@ -1,0 +1,48 @@
+#wrap{
+  width: 100%;
+  height: auto;
+}
+a{
+  color: white;
+}
+
+nav{
+  width:20% ;
+  height: 100vh;
+  background-color: #022454;
+  color: white;
+  float: left;
+  position: fixed;
+  box-shadow: 1px 2px 5px #989898;
+}
+.title{
+  font-size: 20px;
+  font-weight: 800;
+}
+#business,#Purchase,#Production,#standard{
+  margin-left: 40px;
+}
+
+li{
+  margin: 13px 0;
+}
+ul{
+  margin-top: 16px;
+}
+ul,li{
+  cursor: pointer;
+}
+#sidebar button{
+  font-weight: 900;
+}
+button{ 
+  font-size: 30px;
+  font-weight: 900;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  color: white;
+  margin-top: 23px;
+  cursor: pointer;
+  margin-left: 40px;
+  font-family: 'Pretendard-Regular';
+}

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>입출고관리 </title>
+  <!-- css -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/inout.css">
+  <!-- <link rel="stylesheet" href="css/popUpOrder.css"> -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+</head>
+<body>
+<div id="wrap">
+  <nav th:replace="sideMenu::nav"></nav>
+
+  <aside>
+    <form class="orderForm">
+      <div class="topArea">
+        <h1>입출고관리</h1>
+        <div id="btnWrap">
+          <button class="return">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17.303" height="16.221" viewBox="0 0 17.303 16.221">
+              <path id="redo_FILL0_wght400_GRAD0_opsz48" d="M166.272,272.221a6.251,6.251,0,0,1-4.42-1.73,5.852,5.852,0,0,1,0-8.543,6.251,6.251,0,0,1,4.42-1.73h7.948l-3.082-3.082L172.274,256l5.029,5.029-5.029,5.029-1.136-1.135,3.082-3.082h-7.975a4.644,4.644,0,0,0-3.258,1.257,4.254,4.254,0,0,0,0,6.245,4.644,4.644,0,0,0,3.258,1.257h7.813v1.622Z" transform="translate(-160 -256)" fill="#fff"/>
+            </svg>
+
+          </button>
+          <button class="check">조회</button>
+        </div>
+      </div>
+
+      <div id="tableCheckWrap">
+        <table id="tableCheck">
+          <tr class="tablerow">
+            <td class="inventory">회사</td>
+            <td>
+              <select class="company">
+                <option value="">회사명</option>
+                <option value="cupang">쿠팡</option>
+                <option value="Gmarket">지마켓</option>
+                <option value="11">11번가</option>
+              </select>
+            </td>
+
+            <td class="inventory">조회날짜</td>
+            <td><input type="date" class="datepicker"></td>
+            <td>~</td>
+            <td><input type="date" class="datepicker" id="picker"></td>
+            <td class="inventory">입고번호</td>
+            <td>
+              <input type="text">
+            </td>
+            <td class="inventory">진행상태</td>
+            <td>
+              <input type="text">
+            </td>
+          </tr>
+          <tr class="tablerow">
+            <td class="inventory">품목</td>
+            <td>
+              <select class="drop">
+                <option value="">품목</option>
+                <option value="cabbage">양배추즙</option>
+                <option value="garlic">흑마늘즙</option>
+                <option value="Pomegranate">석류젤리</option>
+                <option value="plum">매실젤리</option>
+              </select>
+
+            </td>
+            <td class="inventory">거래처</td>
+            <td>
+              <select class="drop">
+                <option value="">거래처</option>
+                <option value="cupang">코드하우스</option>
+                <option value="Gmarket">하나로마트</option>
+                <option value="Gmarket">에이농장</option>
+                <option value="Gmarket">팔피엠</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </form>
+
+
+    <div id="orderList">
+      <h1> 재고목록 </h1>
+      <div class="allSelect">전체선택</div>
+      <div class="table-container">
+        <table class="orderData">
+          <thead>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>입출고</td>
+            <td>입출고번호</td>
+            <td>거래처</td>
+            <td>통화</td>
+            <td>부가세</td>
+            <td>품목수</td>
+            <td>공급가</td>
+            <td>부가세</td>
+            <td>합계</td>
+            <td>수정일</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr onclick="toggleCheckbox(this)">
+            <td>1</td>
+            <td>
+              <input type="checkbox" id="checkbox">
+            </td>
+            <td style="color:rgb(184, 0, 0)">출고</td>
+            <td>2023-05-07</td>
+            <td>에이농장</td>
+            <td>KRW</td>
+            <td>적용</td>
+            <td>10000</td>
+            <td>0</td>
+            <td>0</td>
+            <td>10000</td>
+            <td>2023-05-14 17:54:34</td>
+          </tr>
+          <tr onclick="toggleCheckbox(this)">
+            <td>2</td>
+            <td>
+              <input type="checkbox" id="checkbox">
+            </td>
+            <td style="color:rgb(1, 81, 255)">입고</td>
+            <td>2023-05-07</td>
+            <td>에이농장</td>
+            <td>KRW</td>
+            <td>적용</td>
+            <td>10000</td>
+            <td>0</td>
+            <td>0</td>
+            <td>10000</td>
+            <td>2023-05-14 17:54:34</td>
+          </tr>
+          <tr onclick="toggleCheckbox(this)">
+            <td >3</td>
+            <td>
+              <input type="checkbox" id="checkbox">
+            </td>
+            <td style="color:rgb(184, 0, 0)">출고</td>
+            <td>2023-05-07</td>
+            <td>에이농장</td>
+            <td>KRW</td>
+            <td>적용</td>
+            <td>10000</td>
+            <td>0</td>
+            <td>0</td>
+            <td>10000</td>
+            <td>2023-05-14 17:54:34</td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>합계</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>100</td>
+            <td>30000</td>
+            <td></td>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div id="orderDetails">
+        <div class="table-container">
+          <h1> 출하상세 </h1>
+          <table class="orderData">
+            <thead>
+            <tr>
+              <td></td>
+              <td>입출고번호</td>
+              <td>진행상태</td>
+              <td>품목코드</td>
+              <td>품목명</td>
+              <td>규격</td>
+              <td>기준단위</td>
+              <td>수량</td>
+              <td>단가</td>
+              <td>공급가</td>
+              <td>합계</td>
+              <td>창고</td>
+              <td>기준단위</td>
+              <td>기준수량</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr onclick="changeColor(this)">
+              <td>1</td>
+              <td>PO2123001</td>
+              <td style="color:rgb(1, 81, 255)">마감</td>
+              <td>smft0002</td>
+              <td>양배추즙</td>
+              <td>파우치</td>
+              <td>EA</td>
+              <td>100</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>자재창고</td>
+              <td>box</td>
+              <td>100</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>합계</td>
+              <td></td>
+              <td></td>
+              <td>100</td>
+              <td>0</td>
+              <td>100</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+        <button id="fileSave">엑셀저장</button>
+      </div>
+    </div>
+
+  </aside>
+</div>
+</div>
+</div>
+
+<!-- 스크립트 -->
+
+<script src="js/datapicker.js"></script>
+<script src="js/popUP.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="js/download.js"></script>
+<script src="js/click.js"></script>
+
+<!-- "excel download" -->
+<!-- Sheet JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
+<!--FileSaver savaAs 이용 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+</body>
+</html>

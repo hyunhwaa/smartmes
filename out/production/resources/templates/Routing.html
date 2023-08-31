@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>라우팅등록배정 </title>
+  <!-- css -->
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/nav.css">
+  <link rel="stylesheet" href="/css/Routing.css">
+  <!-- <link rel="stylesheet" href="css/popUpOrder.css"> -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+</head>
+<body>
+<div id="wrap">
+  <nav th:replace="sideMenu::nav"></nav>
+  <aside>
+    <form class="orderForm">
+      <div class="topArea">
+        <h1>라우팅등록배정</h1>
+        <div id="btnWrap">
+          <button class="return">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17.303" height="16.221" viewBox="0 0 17.303 16.221">
+              <path id="redo_FILL0_wght400_GRAD0_opsz48" d="M166.272,272.221a6.251,6.251,0,0,1-4.42-1.73,5.852,5.852,0,0,1,0-8.543,6.251,6.251,0,0,1,4.42-1.73h7.948l-3.082-3.082L172.274,256l5.029,5.029-5.029,5.029-1.136-1.135,3.082-3.082h-7.975a4.644,4.644,0,0,0-3.258,1.257,4.254,4.254,0,0,0,0,6.245,4.644,4.644,0,0,0,3.258,1.257h7.813v1.622Z" transform="translate(-160 -256)" fill="#fff"/>
+            </svg>
+
+          </button>
+          <button class="check" type="button">조회</button>
+          <button class="new" type="button">신규</button>
+          <button class="retouch" type="button">수정</button>
+        </div>
+      </div>
+
+      <div id="tableCheckWrap">
+        <table id="tableCheck">
+          <tr class="tablerow">
+            <td class="inventory">공정명</td>
+            <td>
+              <select class="company">
+                <option value="">공정명</option>
+                <option value="cupang">추출</option>
+                <option value="Gmarket">실링</option>
+                <option value="11">포장</option>
+              </select>
+            </td>
+
+            <td class="inventory">라우팅코드</td>
+            <td>
+              <input type="text">
+            </td>
+            <td class="inventory">재작업여부</td>
+            <td>
+              <select class="drop">
+                <option value="">재작업여부 Y/N</option>
+                <option value="cupang">N</option>
+                <option value="Gmarket">Y</option>
+              </select>
+            </td>
+            <td class="inventory">품목</td>
+            <td>
+
+              <select class="drop">
+                <option value="">품목</option>
+                <option value="cupang">몰라..모리겟다</option>
+                <option value="Gmarket">하나로마트</option>
+                <option value="Gmarket">에이농장</option>
+                <option value="Gmarket">팔피엠</option>
+              </select>
+            </td>
+
+            <td class="inventory">사용여부</td>
+            <td>
+
+              <select class="drop">
+                <option value="">전체</option>
+                <option value="cabbage">미사용</option>
+                <option value="garlic">사용</option>
+              </select>
+
+            </td>
+          </tr>
+        </table>
+      </div>
+    </form>
+
+
+    <div id="orderList">
+      <h1> 공정목록 </h1>
+      <div class="allSelect">전체선택</div>
+      <div class="table-container">
+        <table class="orderData">
+          <thead>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>라우팅코드</td>
+            <td>공정명</td>
+            <td>재작업</td>
+            <td>공정(수)</td>
+            <td>품목(수)</td>
+            <td>사용여부</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="row-data" th:each="routing,index : ${routingList}">
+            <td th:text="${index.count}"></td>
+            <td>
+              <input type="checkbox" onclick="event.stopPropagation()" class="row-checkbox">
+            </td>
+            <td th:text="${routing.routingId}"></td>
+            <td th:text="${routing.routingName}"></td>
+            <td>N</td>
+            <td>1</td>
+            <td>7</td>
+            <td>사용</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr onclick="toggleCheckbox(this)">
+            <td>1</td>
+            <td>
+              <input type="checkbox" id="checkbox">
+            </td>
+            <td>RTN002</td>
+            <td>양배추 추출</td>
+            <td>N</td>
+            <td>1</td>
+            <td>7</td>
+            <td>사용</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr onclick="toggleCheckbox(this)">
+            <td>1</td>
+            <td>
+              <input type="checkbox" id="checkbox">
+            </td>
+            <td>RTN002</td>
+            <td>양배추 추출</td>
+            <td>N</td>
+            <td>1</td>
+            <td>7</td>
+            <td>사용</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tbody>
+          <!-- <tfoot>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tfoot> -->
+        </table>
+      </div>
+    </div>
+
+    <div id="orderDetails">
+      <div class="table-container">
+        <table id="DetailsData">
+          <thead class="orderData">
+          <tr>
+            <td></td>
+            <td>공정#</td>
+            <td>공정</td>
+            <td>후공정#</td>
+            <td>워크센터</td>
+            <td>거래처</td>
+            <td>실적여부</td>
+            <td>최종여부</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr onclick="changeColor(this)">
+            <td>1</td>
+            <td>1</td>
+            <td>양배추즙 생산</td>
+            <td>1</td>
+            <td>에이농장</td>
+            <td>N</td>
+            <td style="color:rgb(184, 0, 0)">N</td>
+            <td style="color:rgb(0, 4, 255)">Y</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tbody>
+          <!-- <tfoot>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tfoot> -->
+        </table>
+      </div>
+      <button id="fileSave">엑셀저장</button>
+    </div>
+  </aside>
+</div>
+<!-- 스크립트 -->
+
+<script src="js/datapicker.js"></script>
+<!-- <script src="js/popUP.js"></script> -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="js/download.js"></script>
+<script src="js/click.js"></script>
+<script>
+
+  $(document).ready(function() {
+
+    $(".new").click(function() {
+      $("#popUP_wrap").fadeIn();
+
+    });
+
+    $(".close").click(function() {
+
+      $("#popUP_wrap").fadeOut();
+
+    });
+
+  });
+
+</script>
+
+
+
+<!-- "excel download" -->
+<!-- Sheet JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
+<!--FileSaver savaAs 이용 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<nav id="sidebar">
+
+    <button th:onclick="|window.location.href='@{/mes/main}'|">HOME</button>
+    <ul id="business">
+        <span class="title">영업관리</span>
+        <li><a th:href='@{/mes/order}'>수주등록</a></li>
+        <!--        <li><a th:href="@{/management}">수주관리</a></li>-->
+        <li><a th:href="@{/mes/shipment}">출하관리</a></li>
+    </ul>
+    <ul id="Purchase">
+        <span class="title">구매관리</span>
+        <li><a th:href="@{/mes/porder}">발주관리</a></li>
+        <li><a th:href="@{/mes/stock}">재고관리</a></li>
+        <li><a th:href="@{/mes/in}">입고관리(원자재)</a></li>
+        <li><a th:href="@{/mes/out}">출고관리(원자재)</a></li>
+    </ul>
+    <ul id="Production">
+        <span class="title">생산관리</span>
+        <li><a th:href="@{/mes/prodPlan}">생산계획</a></li>
+        <li><a th:href="@{/mes/workorder}">작업지시</a></li>
+        <li><a th:href="@{/mes/lot}">Lot조회</a></li>
+        <!--        <li><a th:href="@{/Porder}">작업실적수정</a></li>-->
+    </ul>
+    <ul id="standard">
+        <span class="title">기준정보</span>
+
+        <li><a th:href="@{/mes/process}">공정등록</a></li>
+        <li><a th:href="@{/mes/routing}">라우팅등록</a></li>
+
+    </ul>
+</nav>

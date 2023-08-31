@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lot조회</title>
+  <!-- css -->
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/nav.css">
+  <link rel="stylesheet" href="/css/Porder.css">
+  <!-- <link rel="stylesheet" href="css/popUpOrder.css"> -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+</head>
+<body>
+<div id="wrap">
+  <nav th:replace="sideMenu::nav"></nav>
+
+  <aside>
+
+    <form class="orderForm" action="/mes/porderSearch" method="post">
+      <div class="topArea">
+        <h1>Lot관리</h1>
+        <div id="btnWrap">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17.303" height="16.221" viewBox="0 0 17.303 16.221">
+            <path id="redo_FILL0_wght400_GRAD0_opsz48" d="M166.272,272.221a6.251,6.251,0,0,1-4.42-1.73,5.852,5.852,0,0,1,0-8.543,6.251,6.251,0,0,1,4.42-1.73h7.948l-3.082-3.082L172.274,256l5.029,5.029-5.029,5.029-1.136-1.135,3.082-3.082h-7.975a4.644,4.644,0,0,0-3.258,1.257,4.254,4.254,0,0,0,0,6.245,4.644,4.644,0,0,0,3.258,1.257h7.813v1.622Z" transform="translate(-160 -256)" fill="#fff"/>
+          </svg>
+          <button class="check" type="submit">조회</button>
+
+        </div>
+      </div>
+
+      <div id="tableCheckWrap">
+        <table id="tableCheck">
+          <tr class="tablerow">
+
+            <td class="inventory">등록일</td>
+            <td><input type="date" class="datepicker" name="startDate"></td>
+            <td>~</td>
+            <td><input type="date" class="datepicker" id="picker" name="endDate"></td>
+            <td class="inventory">진행상태</td>
+            <td>
+              <select class="drop" name="porderStatus">
+                <option value="">진행상태</option>
+                <option value="입고대기">입고대기</option>
+                <option value="입고완료">입고완료</option>
+                <option value="적재완료">적재완료</option>
+              </select>
+            </td>
+            <td class="inventory">거래처</td>
+            <td>
+              <select class="drop" name="supplierId">
+                <option value="">거래처</option>
+                <option value="양배추농장">양배추농장</option>
+                <option value="흑마늘농장">흑마늘농장</option>
+                <option value="파우치공장">파우치공장</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </form>
+
+
+    <div id="orderList">
+      <h1> Lot목록 </h1>
+      <div class="allSelect">전체선택</div>
+      <div class="table-container">
+        <table class="orderData">
+          <thead>
+          <tr>
+            <td></td>
+            <td></td>
+            <td onclick="porderNum()">Lot번호</td>
+            <td>투입수량</td>
+            <td>산출수량</td>
+            <td>자재</td>
+            <td>현재공정Lot번호</td>
+            <td>전공정Lot번호</td>
+            <td>공정</td>
+            <td>등록일</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="lotList, porderIndex : ${lots}" onclick="toggleCheckbox(this)">
+            <td th:text="${porderIndex.index + 1}"></td>
+            <td>
+              <input type="checkbox" id="checkbox">
+            </td>
+            <td th:text="${lotList.lotId}"></td>
+            <td th:text="${lotList.inputQuantity}"></td>
+            <td th:text="${lotList.outputQuantity}"></td>
+            <td th:if="${lotList.productId=='P001' && lotList.processNo=='process01'}">양배추</td>
+            <td th:if="${lotList.productId=='P002' && lotList.processNo=='process01'}">흑마늘</td>
+            <td th:if="${lotList.productId=='P003' && lotList.processNo=='process01'}">양배추</td>
+            <td th:if="${lotList.productId=='P004' && lotList.processNo=='process01'}">양배추</td>
+            <td th:if="${lotList.productId=='P001' && lotList.processNo=='process02'}">양배추</td>
+            <td th:if="${lotList.productId=='P002' && lotList.processNo=='process02'}">흑마늘</td>
+            <td th:if="${lotList.productId=='P001' && lotList.processNo=='process03'}">양배추+정제수</td>
+            <td th:if="${lotList.productId=='P002' && lotList.processNo=='process03'}">흑마늘+정제수</td>
+            <td th:if="${lotList.productId=='P001' && lotList.processNo=='process04'}">양배추추출액</td>
+            <td th:if="${lotList.productId=='P002' && lotList.processNo=='process04'}">흑마늘추출액</td>
+            <td th:if="${lotList.productId=='P003' && lotList.processNo=='process05'}">석류농축액+정제수+콜라겐</td>
+            <td th:if="${lotList.productId=='P004' && lotList.processNo=='process05'}">매실농축액+정제수+콜라겐</td>
+            <td th:if="${lotList.productId=='P003' && lotList.processNo=='process06'}">석류젤리스틱</td>
+            <td th:if="${lotList.productId=='P004' && lotList.processNo=='process06'}">매실젤리스틱</td>
+            <td th:if="${lotList.productId=='P001' && lotList.processNo=='process06'}">양배추즙포</td>
+            <td th:if="${lotList.productId=='P002' && lotList.processNo=='process06'}">흑마늘즙포</td>
+            <td th:if="${lotList.productId=='P001' && lotList.processNo=='process07'}">양배추반제품</td>
+            <td th:if="${lotList.productId=='P002' && lotList.processNo=='process07'}">흑마늘반제품</td>
+            <td th:if="${lotList.productId=='P003' && lotList.processNo=='process08'}">석류젤리반제품</td>
+            <td th:if="${lotList.productId=='P004' && lotList.processNo=='process08'}">매실젤리반제품</td>
+            <td th:if="${lotList.productId=='P001' && lotList.processNo=='process09'}">양배추즙포</td>
+            <td th:if="${lotList.productId=='P002' && lotList.processNo=='process09'}">흑마늘즙포</td>
+            <td th:if="${lotList.productId=='P001' && lotList.processNo=='process10'}">양배추즙포</td>
+            <td th:if="${lotList.productId=='P002' && lotList.processNo=='process10'}">흑마늘즙포</td>
+            <td th:if="${lotList.productId=='P003' && lotList.processNo=='process10'}">석류젤리스틱</td>
+            <td th:if="${lotList.productId=='P004' && lotList.processNo=='process10'}">매실젤리스틱</td>
+            <td th:text="${lotList.lotNo}"></td>
+            <td th:text="${lotList.lotPlotNo}"></td>
+            <td th:if="${lotList.processNo == 'process01'}">원료계량</td>
+            <td th:if="${lotList.processNo == 'process02'}">전처리</td>
+            <td th:if="${lotList.processNo == 'process03'}">추출</td>
+            <td th:if="${lotList.processNo == 'process04'}">혼합 및 살균</td>
+            <td th:if="${lotList.processNo == 'process05'}">혼합 및 살균</td>
+            <td th:if="${lotList.processNo == 'process06'}">식힘</td>
+            <td th:if="${lotList.processNo == 'process07'}">충진</td>
+            <td th:if="${lotList.processNo == 'process08'}">충진</td>
+            <td th:if="${lotList.processNo == 'process09'}">검사</td>
+            <td th:if="${lotList.processNo == 'process10'}">포장</td>
+            <td th:text="${lotList.regDate}"></td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tfoot>
+        </table>
+
+      </div>
+    </div>
+</div>
+</div>
+<button id="fileSave">엑셀저장</button>
+</div>
+
+</aside>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+<!-- 스크립트 -->
+
+<script src="/js/datapicker.js"></script>
+<!-- <script src="js/popUP.js"></script> -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="/js/download.js"></script>
+<script src="/js/click.js"></script>
+<script>
+
+  $(document).ready(function() {
+
+    $(".new").click(function() {
+
+      $("#popUP_wrap").fadeIn();
+
+    });
+
+    $(".close").click(function() {
+
+      $("#popUP_wrap").fadeOut();
+
+    });
+
+  });
+
+
+  //정렬
+  let ascendingOrder = true;
+  let clickCount = 0;
+  function porderDate(){
+    let table, rows, switching, i, x, y, shouldSwitch;
+    table = document.getElementById("orderData");
+    switching = true;
+    while (switching){
+      switching = false;
+      rows = table.getElementsByTagName("tr");
+      for(i = 1; i < rows.length -1; i++){
+        shouldSwitch = false;           //sholdSwitch true 이면 정렬x 상태,
+        x = rows[i].getElementsByTagName("td")[3];
+        y = rows[i + 1].getElementsByTagName("td")[3];
+        const dateX = new Date(x.textContent);
+        const dateY = new Date(y.textContent);
+
+        if(ascendingOrder){
+          if(dateX > dateY){   //오름차순인경우
+            shouldSwitch = true;
+            break;
+          }
+        }else {
+          if(dateX < dateY){   //내림차순 정렬인 경우
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        // 정렬 시 번호 열도 함께 이동
+        let numberX = rows[i].getElementsByTagName("td")[0].textContent;
+        let numberY = rows[i + 1].getElementsByTagName("td")[0].textContent;
+        rows[i].getElementsByTagName("td")[0].textContent = numberY;
+        rows[i + 1].getElementsByTagName("td")[0].textContent = numberX;
+
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+      }
+    }
+    ascendingOrder = !ascendingOrder;   //다음클릭하면 정렬방향 반전
+  }
+
+  function porderNum(){
+    clickCount++;
+    let table, rows, switching, i, x, y, shouldSwitch;
+    table = document.getElementById("orderData");
+    switching = true;
+    while (switching) {
+      switching = false;
+      rows = table.getElementsByTagName("tr");
+      for (i = 1; i < rows.length - 2; i++) {
+        shouldSwitch = false;
+        x = rows[i].getElementsByTagName("td")[2];
+        y = rows[i + 1].getElementsByTagName("td")[2];
+        const numX = parseInt(x.textContent.match(/\d+/)[0]);   //숫자부분만 추출
+        const numY = parseInt(y.textContent.match(/\d+/)[0]);
+
+        if (ascendingOrder) {
+          if (numX > numY) {
+            shouldSwitch = true;
+            break;
+          }
+        } else {
+          if (numX < numY) {
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        // 정렬 시 번호 열도 함께 이동
+        let numberX = rows[i].getElementsByTagName("td")[0].textContent;
+        let numberY = rows[i + 1].getElementsByTagName("td")[0].textContent;
+        rows[i].getElementsByTagName("td")[0].textContent = numberY;
+        rows[i + 1].getElementsByTagName("td")[0].textContent = numberX;
+
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+      }
+    }
+
+    // 클릭 횟수가 짝수일 때 내림차순으로 정렬
+    if (clickCount % 2 === 0) {
+      ascendingOrder = !ascendingOrder;
+    }
+  }
+
+</script>
+
+
+
+<!-- "excel download" -->
+<!-- Sheet JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
+<!--FileSaver savaAs 이용 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+</body>
+</html>
